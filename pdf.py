@@ -12,9 +12,9 @@ tag = soup.find("title")
 
 print(tag.string)
 
-authors = soup.find_all("a")[0]
+# authors = soup.find_all("a")[0]
 # desired_author = []
-print(find (authors.link))
+# print(find (authors.link))
 # for author in authors:
   #  if author.string == "Petri Vuorimaa":
    #     desired_author.append(authors.string)
