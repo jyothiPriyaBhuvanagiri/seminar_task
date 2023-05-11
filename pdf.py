@@ -39,7 +39,7 @@ print(desired_keywords)
 
 with open('data.csv', mode='a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Title', 'Desired Keywords', 'Authors'])
+    # writer.writerow(['Title', 'Desired Keywords', 'Authors'])
     writer.writerow([tag.string, ', '.join(desired_keywords), ',' .join(author_name)])
 
 # tags = soup.find_all("a")
