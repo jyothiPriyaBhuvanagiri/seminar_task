@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 
-url = "https://link.springer.com/chapter/10.1007/978-3-031-09917-5_1#Abs1"
+url = "https://link.springer.com/chapter/10.1007/978-3-031-09917-5_1"
 
 response = requests.get(url)
 soup = BeautifulSoup(response.content, "html.parser")
@@ -27,12 +27,18 @@ print("authors_name : " + author_text)
 keywords = soup.find_all("span")
 desired_keywords = []
 
+affiliation = soup.find("p", {'class': 'c-article-author-affiliation__address'})
+affiliation_text = affiliation.text.strip()
+affiliation.extract()
+
+print(affiliation_text)
+
 for keyword in keywords:
-    if keyword.string == "Click-through rate prediction":
+    if keyword.string == "Recommendation":
         desired_keywords.append(keyword.string)
-    elif keyword.string == "Deep learning":
+    elif keyword.string == "Variational Autoencoders":
         desired_keywords.append(keyword.string)
-    elif keyword.string == "Cross domain recommendation":
+    elif keyword.string == "Collaborative filtering":
         desired_keywords.append(keyword.string)
 
 print(desired_keywords)
@@ -43,8 +49,8 @@ print(abstract_text)
 
 with open('data.csv', mode='a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Title' , 'Desired Keywords' , 'Authors', 'Abstract'])
-    writer.writerow([tag.string, ', '.join(desired_keywords), ',' .join(author_name), (abstract_text)])
+    writer.writerow(['Title' , 'Desired Keywords' , 'Authors', 'Affiliation', 'Abstract'])
+    writer.writerow([tag.string, ', '.join(desired_keywords), ',' .join(author_name), (affiliation_text) , (abstract_text), ])
 
 # tags = soup.find_all("a")
 # print("title: " + tags.get('a'))
